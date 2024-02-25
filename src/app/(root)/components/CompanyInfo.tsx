@@ -31,7 +31,7 @@ function CompanyInfo() {
       website: "https://sixteen.life",
       linkedin: "https://www.linkedin.com/company/sixteenlife",
       industry: "Digital Wellbeing",
-      compDesig: "Redesign your digital life, reduce your screen time",
+      compDes: "Redesign your digital life, reduce your screen time",
       compGoals:
         "Help everyone to be more conscious of where they are spending their time",
       headQ: "Delhi, India",
@@ -107,22 +107,90 @@ function CompanyInfo() {
       <div className="comp-info flex flex-col gap-7 lg:grid lg:grid-cols-[repeat(2,1fr)] lg:gap-x-10 lg:gap-y-6 text-sm mb-10">
         <label className="text-[#17171FCC]">
           Company's Name
-          <Input {...register("name")} className="mt-2" />
+          <Input
+            {...register("name", {
+              required: "Company Name is required",
+              minLength: {
+                value: 3,
+                message: "Company Name must be at least 3 characters",
+              },
+              pattern: {
+                value: /[a-zA-Z0-9_ ]/g,
+                message:
+                  "The input should only contain letters, digits, underscores, or spaces.",
+              },
+            })}
+            className="mt-2"
+          />
+          {errors.name && (
+            <p className="text-red-500 text-sm font-light">
+              {errors.name.message?.toString()}
+            </p>
+          )}
         </label>
 
         <label className="text-[#17171FCC]">
           Company's Website
-          <Input {...register("website")} className="mt-2" />
+          <Input
+            {...register("website", {
+              required: "Company's Website URL is required",
+              pattern: {
+                value:
+                  /https?:\/\/(www\.)?[a-zA-Z0-9_-]+\.[a-zA-Z]{2,}(\/[a-zA-Z0-9_-]+)*/g,
+                message: "Invalid URL format. Please enter a valid URL",
+              },
+            })}
+            className="mt-2"
+          />
+          {errors.website && (
+            <p className="text-red-500 text-sm font-light">
+              {errors.website.message?.toString()}
+            </p>
+          )}
         </label>
 
         <label className="text-[#17171FCC]">
-          Company's Website
-          <Input {...register("linkedin")} className="mt-2" />
+          Company's Linkedin
+          <Input
+            {...register("linkedin", {
+              required: "Company's Linkedin profile link required!",
+              pattern: {
+                value:
+                  /https?:\/\/(www\.)?linkedin\.com\/(company\/)?(in\/)?[a-zA-Z0-9_-]+/g,
+                message: "Invalid URL format. Please enter a valid URL",
+              },
+            })}
+            className="mt-2"
+          />
+          {errors.linkedin && (
+            <p className="text-red-500 text-sm font-light">
+              {errors.linkedin.message?.toString()}
+            </p>
+          )}
         </label>
 
         <label className="text-[#17171FCC]">
           Company's Industry
-          <Input {...register("industry")} className="mt-2" />
+          <Input
+            {...register("industry", {
+              required: "Company Name is required",
+              minLength: {
+                value: 3,
+                message: "Company Name must be at least 3 characters",
+              },
+              pattern: {
+                value: /[a-zA-Z0-9_ ]/g,
+                message:
+                  "The input should only contain letters, digits, underscores, or spaces.",
+              },
+            })}
+            className="mt-2"
+          />
+          {errors.industry && (
+            <p className="text-red-500 text-sm font-light">
+              {errors.industry.message?.toString()}
+            </p>
+          )}
         </label>
       </div>
 
@@ -201,23 +269,65 @@ function CompanyInfo() {
         </RadioGroup>
       </div>
 
-      {/* COMPANY DESIGNATION */}
-      <div className="comp-designation text-sm mb-10">
+      {/* COMPANY DESCRIPTION */}
+      <div className="comp-description text-sm mb-10">
         <h1 className="text-[##17171F] mb-2">Company description</h1>
-        <Input {...register("compDesig")} className="mb-2" />
+        <Input
+          {...register("compDes", {
+            required: "Company description is required",
+            minLength: {
+              value: 50,
+              message: "Company description must be at least 50 characters",
+            },
+          })}
+          className="mb-2"
+        />
         <p className="text-[#17171F99]">Your detailed company description</p>
+        {errors.compDes && (
+          <p className="text-red-500 text-sm font-light mt-1">
+            {errors.compDes.message?.toString()}
+          </p>
+        )}
       </div>
 
       {/* COMPANY GOALS */}
       <div className="comp-goals text-sm mb-10">
         <h1 className="text-[##17171F] mb-2">What are your company goals?</h1>
-        <Input {...register("compGoals")} className="" />
+        <Input
+          {...register("compGoals", {
+            required: "Company goals is required",
+            minLength: {
+              value: 50,
+              message: "Company goals must be at least 50 characters",
+            },
+          })}
+          className=""
+        />
+        {errors.compGoals && (
+          <p className="text-red-500 text-sm font-light mt-1">
+            {errors.compGoals.message?.toString()}
+          </p>
+        )}
       </div>
 
       {/* HEADQUARTERS */}
       <div className="head-q text-sm mb-10">
         <h1 className="text-[##17171F] mb-2">Headquarters</h1>
-        <Input {...register("headQ")} className="" />
+        <Input
+          {...register("headQ", {
+            required: "Company Headquarters is required",
+            minLength: {
+              value: 3,
+              message: "Company Headquarters must be at least 3 characters",
+            },
+          })}
+          className=""
+        />
+        {errors.headQ && (
+          <p className="text-red-500 text-sm font-light mt-1">
+            {errors.headQ.message?.toString()}
+          </p>
+        )}
       </div>
 
       {/* FUNDING ROUND AND FAQs */}
@@ -238,7 +348,22 @@ function CompanyInfo() {
 
         <label className="text-[#17171FCC]">
           FAQs
-          <Input {...register("faqs")} className="mt-2" />
+          <Input
+            {...register("faqs", {
+              required: "Company's FAQs link required!",
+              pattern: {
+                value:
+                  /https?:\/\/(www\.)?[a-zA-Z0-9_-]+\.[a-zA-Z]{2,}(\/[a-zA-Z0-9_-]+)*/g,
+                message: "Invalid URL format. Please enter a valid URL",
+              },
+            })}
+            className="mt-2"
+          />
+          {errors.faqs && (
+            <p className="text-red-500 text-sm font-light mt-1">
+              {errors.faqs.message?.toString()}
+            </p>
+          )}
         </label>
       </div>
     </form>
